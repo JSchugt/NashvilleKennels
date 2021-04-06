@@ -6,6 +6,8 @@ import { AnimalCard } from "./animal/AnimalCard"
 import { AnimalProvider } from "./animal/AnimalProvider"
 import { CustomerProvider } from "./customers/CustomerProvider"
 import { CustomerList } from "./customers/CustomerList"
+import { EmployeeProvider } from "./employees/EmployeeProvider"
+import { EmployeeList } from "./employees/EmployeeList"
 // import { LocationCard } from "./locations/LocationCard"
 // import {CustomerCard} from "./customers/Customer"
 // import { EmployeeCard } from "./employees/EmployeeCard"
@@ -32,6 +34,11 @@ export const ApplicationViews = () => {
                     <CustomerList />
                 </Route>
             </CustomerProvider>
+            <EmployeeProvider>
+                <Route exact path="/employees">
+                    <EmployeeList />
+                </Route>
+            </EmployeeProvider>
 
         </>
     )

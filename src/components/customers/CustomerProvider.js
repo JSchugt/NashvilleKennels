@@ -1,6 +1,5 @@
 import React, { useState, createContext } from "react";
 
-
 export const CustomerContext = createContext()
 
 export const CustomerProvider = (props) => {
