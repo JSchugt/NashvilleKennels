@@ -8,6 +8,8 @@ import { CustomerProvider } from "./customers/CustomerProvider"
 import { CustomerList } from "./customers/CustomerList"
 import { EmployeeProvider } from "./employees/EmployeeProvider"
 import { EmployeeList } from "./employees/EmployeeList"
+import { AnimalDetail } from "./animal/AnimalDetails"
+import { AnimalForm } from "./animal/AnimalForm"
 // import { LocationCard } from "./locations/LocationCard"
 // import {CustomerCard} from "./customers/Customer"
 // import { EmployeeCard } from "./employees/EmployeeCard"
@@ -25,9 +27,19 @@ export const ApplicationViews = () => {
                 <AnimalCard  />
             </Route> */}
             <AnimalProvider>
-                <Route exact path="/animals">
-                    <AnimalList />
-                </Route>
+                {/* <LocationProvider> */}
+                    <CustomerProvider>
+                        <Route exact path="/animals">
+                            <AnimalList />
+                        </Route>
+                        <Route path="/animals/:animalId(\d+)">
+                            <AnimalDetail />
+                        </Route>
+                        <Route exact path="/animals/create">
+                            {/* <AnimalForm /> */}
+                        </Route>
+                    </CustomerProvider>
+                {/* </LocationProvider> */}
             </AnimalProvider>
             <CustomerProvider>
                 <Route exact path="/customers">

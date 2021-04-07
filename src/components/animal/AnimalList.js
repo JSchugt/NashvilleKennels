@@ -1,29 +1,35 @@
-import React, { useContext, useEffect } from "react"
-import { AnimalContext } from "./AnimalProvider"
-import { AnimalCard } from "./AnimalCard"
-import "./Animal.css"
+import React, { useState, useEffect } from 'react';
+//import the components we will need
+import { AnimalCard } from './AnimalCard';
+import { getAllAnimals, getAnimalById,deleteAnimal } from '../modules/AnimalManager';
 
 export const AnimalList = () => {
-    // This state changes when `getAnimals()` is invoked below
-    const { animals, getAnimals } = useContext(AnimalContext)
+    // The initial state is an empty array
+    const [animals, setAnimals] = useState([]);
 
-    //useEffect - reach out to the world for something
+    const getAnimals = () => {
+        // After the data comes back from the API, we
+        //  use the setAnimals function to update state
+        return getAllAnimals().then(animalsFromAPI => {
+            setAnimals(animalsFromAPI)
+        });
+    };
+
+    // got the animals from the API on the component's first render
     useEffect(() => {
-        console.log("AnimalList: useEffect - getAnimals")
-        getAnimals()
-
-    }, [])
-
-
+        getAnimals();
+    }, []);
+    const handleDeleteAnimal = id =>{
+        deleteAnimal(id)
+        .then(()=> getAllAnimals().then(setAnimals))
+    }
+    // Finally we use .map() to "loop over" the animals array to show a list of animal cards
     return (
-        <div className="animals">
-            {console.log("AnimalList: Render", animals)}
-            {
-                animals.map(animal => {
-                    // key is used for the DOM,   var={object}
-                    return <AnimalCard key={animal.id} taco={animal} />
-                })
-            }
+        <div className="container-cards">
+            {animals.map(animal => <AnimalCard 
+            key={animal.id}
+            taco={animal} 
+            handleDeleteAnimal={handleDeleteAnimal}/>)}
         </div>
-    )
-}
+    );
+};
