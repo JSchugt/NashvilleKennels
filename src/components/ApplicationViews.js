@@ -26,21 +26,15 @@ export const ApplicationViews = () => {
             {/* <Route path="/animals">
                 <AnimalCard  />
             </Route> */}
-            <AnimalProvider>
-                {/* <LocationProvider> */}
-                    <CustomerProvider>
-                        <Route exact path="/animals">
-                            <AnimalList />
-                        </Route>
-                        <Route path="/animals/:animalId(\d+)">
-                            <AnimalDetail />
-                        </Route>
-                        <Route exact path="/animals/create">
-                            {/* <AnimalForm /> */}
-                        </Route>
-                    </CustomerProvider>
-                {/* </LocationProvider> */}
-            </AnimalProvider>
+            <Route exact path="/animals">
+                <AnimalList />
+            </Route>
+            <Route path="/animals/:animalId(\d+)">
+                <AnimalDetail />
+            </Route>
+            <Route exact path="/animals/create">
+                <AnimalForm />
+            </Route>
             <CustomerProvider>
                 <Route exact path="/customers">
                     <CustomerList />
@@ -51,7 +45,7 @@ export const ApplicationViews = () => {
                     <EmployeeList />
                 </Route>
             </EmployeeProvider>
-
+            {/* Use context  */}
         </>
     )
 }
