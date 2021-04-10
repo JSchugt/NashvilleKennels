@@ -9,6 +9,7 @@ import { AnimalForm } from "./animal/AnimalForm"
 import { LocationList } from "./locations/LocationList";
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
+import { AnimalEditForm } from "./animal/AnimalEditForm"
 // import { LocationCard } from "./locations/LocationCard"
 // import {CustomerCard} from "./customers/Customer"
 // import { EmployeeCard } from "./employees/EmployeeCard"
@@ -20,6 +21,7 @@ export const ApplicationViews = () => {
         sessionStorage.setItem("kennel_customer", JSON.stringify(user))
         setIsAuthenticated(sessionStorage.getItem("kennel_customer") !== null)
     }
+    const toLogin = <Redirect to="/login" />;
     return (
         <>
             {/* Render the location list when http://localhost:3000/ */}
@@ -34,28 +36,29 @@ export const ApplicationViews = () => {
             <Route exact path="/animals">
                 {isAuthenticated ? <AnimalList /> : <Redirect to="/login" />}
             </Route>
-
-            <Route path="/animals/:animalId(\d+)">
+            <Route exact path="/animals/:animalId(\d+)">
                 <AnimalDetail />
             </Route>
             <Route exact path="/animals/create">
                 <AnimalForm />
             </Route>
             <Route exact path="/customers">
-                <CustomerList />
+                {isAuthenticated ? <CustomerList /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/employees">
-                <EmployeeList />
+                {isAuthenticated ? <EmployeeList /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/locations">
-                <LocationList />
+                {isAuthenticated ? <LocationList /> : <Redirect to="/login" />}
             </Route>
-            <Route path="/login">
+            <Route exact path="/login">
                 <Login setAuthUser={setAuthUser} />
             </Route>
-
             <Route path="/register">
                 <Register setAuthUser={setAuthUser} />
+            </Route>
+            <Route path="/animals/:animalId(\d+)/edit">
+                {isAuthenticated?<AnimalEditForm />:<Redirect to="/login" />}
             </Route>
             {/* Use context  */}
         </>
