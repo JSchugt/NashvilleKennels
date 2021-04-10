@@ -1,18 +1,21 @@
-import React, { useContext, useEffect, useState } from "react"
-import { CustomerContext } from "./CustomerProvider"
+import React, { useEffect, useState } from "react"
 import { CustomerCard } from "./Customer"
 import { useHistory } from "react-router";
+import { getCustomers } from "../modules/CustomerManager";
 
 export const CustomerList = () => {
 
     // const { customers, getCustomers } = useContext(CustomerContext)
-    const [customers, setCustomers] = useState();
+    const [customers, setCustomers] = useState([]);
     const history = useHistory();
-    useEffect(() => {
-        getCustomers()
-    }, [])
-
-
+    const getAllCustomers = () => {
+        return getCustomers().then(customersFromAPi => {
+            setCustomers(customersFromAPi)
+        });
+    }
+    useEffect(()=>{
+        getAllCustomers();
+    },[])
     return (
         <div className="customers">
             {

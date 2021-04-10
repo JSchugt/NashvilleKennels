@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { addAnimal } from "../modules/AnimalManager";
+import { getCustomers } from "../modules/CustomerManager";
+import { getAllLocations } from "../modules/LocationManager";
 import "./AnimalForms.css"
 
 export const AnimalForm = () => {
@@ -25,13 +27,15 @@ export const AnimalForm = () => {
         if (event.target.id.includes("Id")) {
             selectVal = parseInt(selectVal)
         }
+        newAnimal[event.target.id] = selectVal
+        setAnimal(newAnimal);
     }
     useEffect(() => {
-
+        getAllLocations().then(setLocations)
     }, [])
 
     useEffect(() => {
-
+        getCustomers().then(setCustomers)
     }, [])
 
     const handleClickSaveAnimal = (event) => {
